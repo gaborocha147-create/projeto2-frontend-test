@@ -19,6 +19,7 @@ function ListaImoveis() {
 
   return (
     <ul>
+        <Link to="/imoveis/novo">+ Cadastrar imóvel</Link>
       {imoveis.map((imovel) => (
         <li key={imovel.id}>
             <Link to={`/imoveis/${imovel.id}`}>

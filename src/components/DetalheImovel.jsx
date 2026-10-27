@@ -24,7 +24,8 @@ function DetalheImovel() {
 
   return (
     <div>
-      <Link to="/">← Voltar</Link>
+      <Link to="/">← Voltar </Link>
+      <Link to={`/imoveis/${id}/editar`}>Editar</Link>
       <h1>{imovel.tipo}</h1>
       <p>{imovel.tipo_logradouro} {imovel.logradouro}</p>
       <p>{imovel.bairro} — {imovel.cidade} — CEP {imovel.cep}</p>
