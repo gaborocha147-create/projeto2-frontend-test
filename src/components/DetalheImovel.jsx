@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import api from '../services/api'
 
 function DetalheImovel() {
@@ -7,6 +7,19 @@ function DetalheImovel() {
   const [imovel, setImovel] = useState(null)
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState(null)
+
+  const navigate = useNavigate()
+
+  async function excluir() {
+    if (!confirm('Tem certeza que deseja excluir este imóvel?')) return
+
+    try {
+        await api.delete(`/imoveis/${id}`)
+        navigate('/')
+    } catch (err) {
+        alert(err.response?.data?.erro ?? err.response?.data ?? 'Erro ao excluir.')
+    }
+  }
 
   useEffect(() => {
     setCarregando(true)
@@ -26,6 +39,7 @@ function DetalheImovel() {
     <div>
       <Link to="/">← Voltar </Link>
       <Link to={`/imoveis/${id}/editar`}>Editar</Link>
+      <button type="button" onClick={excluir}>Excluir</button>
       <h1>{imovel.tipo}</h1>
       <p>{imovel.tipo_logradouro} {imovel.logradouro}</p>
       <p>{imovel.bairro} — {imovel.cidade} — CEP {imovel.cep}</p>
